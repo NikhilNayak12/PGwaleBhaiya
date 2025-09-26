@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "pg-walebhaiya",
+    "prod": "pg-walebhaiya",
+    "staging": "pg-walebhaiya-staging"
+  }
+}

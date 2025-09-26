@@ -1,0 +1,44 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Images for PG listings
+    match /pg-images/{pgId}/{imageId} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+                      request.resource.size < 5 * 1024 * 1024 && // 5MB max
+                      request.resource.contentType.matches('image/.*');
+      allow delete: if request.auth != null;
+    }
+    
+    // Profile images for landlords
+    match /profile-images/{userId} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+                      request.auth.uid == userId &&
+                      request.resource.size < 2 * 1024 * 1024 && // 2MB max
+                      request.resource.contentType.matches('image/.*');
+    }
+    
+    // Document uploads for verification
+    match /documents/{userId}/{documentId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Cashback proofs folder
+    match /cashback_proofs/{allPaths=**} {
+      allow write: if true; // Anyone can upload
+      allow read: if request.auth != null && request.auth.uid == "cL2J1SIMEmRO8AATSJvj7O8oqV53"; // Only admin can read
+    }
+
+    // Or, if you use 'cashback' folder:
+    match /cashback/{allPaths=**} {
+      allow write: if true;
+      allow read: if request.auth != null && request.auth.uid == "cL2J1SIMEmRO8AATSJvj7O8oqV53";
+    }
+    
+    // Deny access to all other files
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

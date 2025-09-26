@@ -1,0 +1,45 @@
+{
+  "name": "pgwalebhaiya",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --mode development",
+    "build": "vite build --mode production",
+    "preview": "vite preview",
+    "build:dev": "vite build --mode development",
+    "build:prod": "vite build --mode production",
+    "build:staging": "vite build --mode staging",
+    "deploy:frontend": "npm run build:prod ; firebase deploy --only hosting --project prod",
+    "deploy:backend": "cd backend ; firebase deploy --only functions --project prod",
+    "deploy:full": "npm run build:prod ; cd backend ; firebase deploy --project prod",
+    "deploy:staging": "npm run build:staging ; cd backend ; firebase deploy --project staging",
+    "start:backend": "cd backend/functions ; firebase emulators:start --only functions,firestore,auth",
+    "start:backend:prod": "cd backend/functions ; firebase emulators:start --import=./emulator-data --export-on-exit=./emulator-data",
+    "test:api": "cd backend ; node test-api.js",
+    "test:landlord": "cd backend ; node test-landlord-apis.js",
+    "lint": "eslint src --ext .js,.jsx --fix",
+    "lint:check": "eslint src --ext .js,.jsx",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist node_modules/.vite",
+    "analyze": "npm run build ; npx vite-bundle-analyzer dist/assets/*.js",
+    "prepare": "npm run lint:check"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "axios": "^1.11.0",
+    "firebase": "^12.1.0",
+    "framer-motion": "^12.23.12",
+    "lucide-react": "^0.536.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.7.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.4.4",
+    "vite": "^5.0.0"
+  }
+}
