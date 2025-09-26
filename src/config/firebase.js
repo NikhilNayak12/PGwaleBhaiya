@@ -5,7 +5,7 @@ import { getFirestore } from 'firebase/firestore';
 
 // Your Firebase config - we'll use environment variables
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyAAFF4WVsOebgzYoHnz7t7zLSyIzGgFOtY",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "pg-walebhaiya.firebaseapp.com",
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "pg-walebhaiya",
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "pg-walebhaiya.firebasestorage.app",

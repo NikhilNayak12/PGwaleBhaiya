@@ -4,6 +4,8 @@ import { Mail, ArrowRight } from "lucide-react";
 
 export default function ResetPassword() {
   const navigate = useNavigate();
+  // Read API key from Vite env variables (must be prefixed with VITE_)
+  const API_KEY = import.meta.env.VITE_FIREBASE_API_KEY;
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -17,8 +19,13 @@ export default function ResetPassword() {
       setError("Please enter your email address");
       return;
     }
+    if (!API_KEY) {
+      setError('Firebase API key is not configured. Please set VITE_FIREBASE_API_KEY in your environment.');
+      return;
+    }
+
     setIsSubmitting(true);
-    fetch(`https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAAFF4WVsOebgzYoHnz7t7zLSyIzGgFOtY`, {
+    fetch(`https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${API_KEY}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

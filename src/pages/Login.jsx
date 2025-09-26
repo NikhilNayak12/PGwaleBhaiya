@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 
 export default function Login() {
+  // Read API key from Vite env variables
+  const API_KEY = import.meta.env.VITE_FIREBASE_API_KEY;
   const navigate = useNavigate();
   const location = useLocation();
   const returnUrl = location.state?.returnUrl || '/landlord-dashboard';
@@ -42,7 +44,12 @@ export default function Login() {
     }
     setIsSubmitting(true);
     // Real Firebase Auth login
-    fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAAFF4WVsOebgzYoHnz7t7zLSyIzGgFOtY`, {
+    if (!API_KEY) {
+      alert('Firebase API key is not configured. Please set VITE_FIREBASE_API_KEY in your environment.');
+      setIsSubmitting(false);
+      return;
+    }
+    fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
