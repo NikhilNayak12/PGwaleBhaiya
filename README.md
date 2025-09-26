@@ -1,3 +1,4 @@
+
 # 🏠 PG Wale Bhaiya - Complete PG Listing Platform
 
 A comprehensive web application for students to find and book PG accommodations near LPU (Lovely Professional University). Built with React, Firebase, and modern web technologies.
@@ -315,3 +316,4 @@ For support and questions:
 **Built with ❤️ for the LPU student community**
 
 *Making PG hunting easier, one click at a time!* 🏠✨
+
